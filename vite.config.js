@@ -11,7 +11,7 @@ import viteCompression from "vite-plugin-compression";
 export default ({ mode }) =>
   defineConfig({
     // 全部还原！！！
-    base: "/",
+    base: "/home/",
 
     plugins: [
       vue(),
