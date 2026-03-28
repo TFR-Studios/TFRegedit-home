@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Github",
+    "icon": "/images/icon/github.png",
+    "tip": "Github 主页",
+    "url": "https://github.com/TFR-Studios"
+  },
+  {
+    "name": "BiliBili",
+    "icon": "/images/icon/bilibili.png",
+    "tip": "B站主页",
+    "url": "https://space.bilibili.com/1046025996"
+  },
+  {
+    "name": "QQ",
+    "icon": "/images/icon/qq.png",
+    "tip": "QQ3575530277",
+    "url": "https://mp.qzone.qq.com/u/3575530277?uin=3575530277&is_famous_space=0&brand_flag=0"
+  },
+  {
+    "name": "Email",
+    "icon": "/images/icon/email.png",
+    "tip": "邮箱:regedit2024@outlook.com",
+    "url": "mailto:regedit2024@outlook.com"
+  }
+]
