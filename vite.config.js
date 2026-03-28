@@ -8,10 +8,10 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import viteCompression from "vite-plugin-compression";
 
-// https://vitejs.dev/config/
 export default ({ mode }) =>
   defineConfig({
-    base: "/home/", // ✅ 就是加了这一行！让项目跑在子路径 /home
+    // 全部还原！！！
+    base: "/",
 
     plugins: [
       vue(),
@@ -49,61 +49,25 @@ export default ({ mode }) =>
           short_name: loadEnv(mode, process.cwd()).VITE_SITE_NAME,
           description: loadEnv(mode, process.cwd()).VITE_SITE_DES,
           display: "standalone",
-          start_url: "/home/", // ✅ 这里同步改一下
+          start_url: "/",
           theme_color: "#424242",
           background_color: "#424242",
           icons: [
-            {
-              src: "/home/images/icon/48.png", // ✅ 所有图标路径都加 /home
-              sizes: "48x48",
-              type: "image/png",
-            },
-            {
-              src: "/home/images/icon/72.png",
-              sizes: "72x72",
-              type: "image/png",
-            },
-            {
-              src: "/home/images/icon/96.png",
-              sizes: "96x96",
-              type: "image/png",
-            },
-            {
-              src: "/home/images/icon/128.png",
-              sizes: "128x128",
-              type: "image/png",
-            },
-            {
-              src: "/home/images/icon/144.png",
-              sizes: "144x144",
-              type: "image/png",
-            },
-            {
-              src: "/home/images/icon/192.png",
-              sizes: "192x192",
-              type: "image/png",
-            },
-            {
-              src: "/home/images/icon/512.png",
-              sizes: "512x512",
-              type: "image/png",
-            },
+            { src: "/images/icon/48.png", sizes: "48x48", type: "image/png" },
+            { src: "/images/icon/72.png", sizes: "72x72", type: "image/png" },
+            { src: "/images/icon/96.png", sizes: "96x96", type: "image/png" },
+            { src: "/images/icon/128.png", sizes: "128x128", type: "image/png" },
+            { src: "/images/icon/144.png", sizes: "144x144", type: "image/png" },
+            { src: "/images/icon/192.png", sizes: "192x192", type: "image/png" },
+            { src: "/images/icon/512.png", sizes: "512x512", type: "image/png" },
           ],
         },
       }),
       viteCompression(),
     ],
-    server: {
-      port: "3000",
-      open: true,
-    },
+    server: { port: "3000", open: true },
     resolve: {
-      alias: [
-        {
-          find: "@",
-          replacement: resolve(__dirname, "src"),
-        },
-      ],
+      alias: [{ find: "@", replacement: resolve(__dirname, "src") }],
     },
     css: {
       preprocessorOptions: {
@@ -116,9 +80,7 @@ export default ({ mode }) =>
     build: {
       minify: "terser",
       terserOptions: {
-        compress: {
-          pure_funcs: ["console.log"],
-        },
+        compress: { pure_funcs: ["console.log"] },
       },
     },
   });
