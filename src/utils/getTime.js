@@ -60,6 +60,7 @@ export const getTimeCapsule = () => {
     },
     month: {
       elapsed: date,
+      total: monthAll,
       pass: Math.floor(monthPassPercent),
     },
     year: {

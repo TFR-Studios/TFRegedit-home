@@ -4,14 +4,34 @@
       <hourglass-full theme="two-tone" size="24" :fill="['#efefef', '#00000020']" />
       <span>时光胶囊</span>
     </div>
-    <span class="text">今日已经度过了&nbsp;{{ timeData.day.elapsed }}&nbsp;小时</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.day.pass" />
-    <span class="text">本周已经度过了&nbsp;{{ timeData.week.elapsed }}&nbsp;天</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.week.pass" />
-    <span class="text">本月已经度过了&nbsp;{{ timeData.month.elapsed }}&nbsp;天</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.month.pass" />
-    <span class="text">今年已经度过了&nbsp;{{ timeData.year.elapsed }}&nbsp;个月</span>
-    <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.year.pass" />
+    <div class="progress-container">
+      <span class="text">今日已经度过了&nbsp;{{ timeData.day.elapsed }}&nbsp;小时</span>
+      <div class="progress-with-remain">
+        <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.day.pass" />
+        <span class="remain-time">剩余{{ 24 - timeData.day.elapsed }}小时</span>
+      </div>
+    </div>
+    <div class="progress-container">
+      <span class="text">本周已经度过了&nbsp;{{ timeData.week.elapsed }}&nbsp;天</span>
+      <div class="progress-with-remain">
+        <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.week.pass" />
+        <span class="remain-time">剩余{{ 7 - timeData.week.elapsed }}天</span>
+      </div>
+    </div>
+    <div class="progress-container">
+      <span class="text">本月已经度过了&nbsp;{{ timeData.month.elapsed }}&nbsp;天</span>
+      <div class="progress-with-remain">
+        <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.month.pass" />
+        <span class="remain-time">剩余{{ timeData.month.total - timeData.month.elapsed }}天</span>
+      </div>
+    </div>
+    <div class="progress-container">
+      <span class="text">今年已经度过了&nbsp;{{ timeData.year.elapsed }}&nbsp;个月</span>
+      <div class="progress-with-remain">
+        <el-progress :text-inside="true" :stroke-width="20" :percentage="timeData.year.pass" />
+        <span class="remain-time">剩余{{ 12 - timeData.year.elapsed }}个月</span>
+      </div>
+    </div>
     <div v-if="startDate?.length >= 4 && store.siteStartShow">
       <span class="text" v-html="startDateText" />
     </div>
@@ -77,4 +97,36 @@ onBeforeUnmount(() => {
     font-size: 0.95rem;
   }
 }
+  .progress-container {
+    margin: 1rem 0rem 0.5rem 0rem;
+  }
+  
+  .progress-with-remain {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    :deep(.el-progress) {
+      flex: 1;
+      margin: 0;
+      
+      .el-progress-bar {
+        margin-right: 0;
+      }
+      
+      .el-progress__text {
+        display: inline-block;
+        margin-left: 10px;
+        white-space: nowrap;
+      }
+    }
+    
+    .remain-time {
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: #efefef;
+      opacity: 0.8;
+      white-space: nowrap;
+    }
+  }
 </style>

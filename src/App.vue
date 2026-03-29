@@ -114,9 +114,9 @@ onMounted(() => {
   const title1 = "TFRegeditの主页 基于imssy";
   const title2 = `
  _____ __  __  _______     ____     __
-|_   _|  \\/  |/ ____\\ \\   / /\\ \\   / /
-  | | | \\  / | (___  \\ \\_/ /  \\ \\_/ /
-  | | | |\\/| |\\___ \\  \\   /    \\   /
+|_   _|  \/  |/ ____\ \   / /\ \   / /
+  | | | \  / | (___  \ \_/ /  \ \_/ /
+  | | | |\/| |\___ \  \   /    \   /
  _| |_| |  | |____) |  | |      | |
 |_____|_|  |_|_____/   |_|      |_|`;
   const content = `\n\n版本: ${config.version}\n主页: ${config.home}\nGithub: ${config.github}`;
@@ -207,10 +207,8 @@ onBeforeUnmount(() => {
   backdrop-filter: blur(10px);
   border-radius: 50%;
   cursor: pointer;
-  opacity: 0.2; /* 正常状态20%透明度 */
   transition: all 0.3s ease;
   &:hover {
-    opacity: 1; /* 悬停时恢复正常透明度 */
     background: rgba(0, 0, 0, 0.5);
     transform: scale(1.15);
   }
