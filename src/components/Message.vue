@@ -1,11 +1,16 @@
-<template>
+// 监听窗口大小变化
+window.addEventListener('resize', handleResize);
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});<template>
   <!-- 基本信息 -->
   <div class="message">
     <!-- Logo -->
     <div class="logo">
       <img class="logo-img" :src="siteLogo" alt="logo" />
       <div :class="{ name: true, long: siteUrl[0].length >= 6 }">
-        <span class="bg">{{ siteUrl[0] }}</span>
+        <span class="bg" ref="bgElement">{{ siteUrl[0] }}</span>
         <span class="sm">.{{ siteUrl[1] }}</span>
       </div>
     </div>
@@ -70,6 +75,23 @@ const changeBox = () => {
   }
 };
 
+// 获取元素引用
+const bgElement = ref(null);
+
+// 动态调整字体大小
+const adjustFontSize = (element, maxFontSize = 5) => {
+  if (!element) return;
+  
+  let fontSize = maxFontSize;
+  element.style.fontSize = fontSize + 'rem';
+  
+  // 检查是否溢出，如果是则减小字体
+  while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && fontSize > 1) {
+    fontSize -= 0.1;
+    element.style.fontSize = fontSize + 'rem';
+  }
+};
+
 // 监听状态变化
 watch(
   () => store.boxOpenState,
@@ -83,6 +105,27 @@ watch(
     }
   },
 );
+
+// 在组件挂载后调整字体大小
+onMounted(() => {
+  nextTick(() => {
+    if (bgElement.value) {
+      adjustFontSize(bgElement.value, 5);
+    }
+  });
+});
+
+// 监听窗口大小变化
+const handleResize = () => {
+  nextTick(() => {
+    if (bgElement.value) {
+      adjustFontSize(bgElement.value, 5);
+    }
+  });
+};
+
+// 监听窗口大小变化
+window.addEventListener('resize', handleResize);
 </script>
 
 <style lang="scss" scoped>
@@ -98,23 +141,35 @@ watch(
       width: 120px;
     }
     .name {
-      width: 100%;
-      padding-left: 22px;
-      transform: translateY(-8px);
-      font-family: "Pacifico-Regular";
+        width: 100%;
+        padding-left: 22px;
+        transform: translateY(-8px);
+        font-family: "Pacifico-Regular";
+        display: flex;
+        align-items: baseline;
+        overflow: hidden;
 
-      .bg {
-        font-size: 5rem;
-      }
+        .bg {
+          font-size: 5rem;
+          white-space: nowrap;
+          overflow: hidden;
+          flex: 1;
+          min-width: 0;
+          text-overflow: ellipsis;
+          flex-shrink: 1;
+          text-wrap: balance;
+        }
 
-      .sm {
-        margin-left: 6px;
-        font-size: 2rem;
-        @media (min-width: 720px) and (max-width: 789px) {
-          display: none;
+        .sm {
+          margin-left: 6px;
+          font-size: 2rem;
+          white-space: nowrap;
+          flex-shrink: 0;
+          @media (min-width: 720px) and (max-width: 789px) {
+            display: none;
+          }
         }
       }
-    }
     @media (max-width: 768px) {
       .logo-img {
         width: 100px;
